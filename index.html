@@ -1,17 +1,421 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#10120f" />
-    <meta
-      name="description"
-      content="Learn the basics of self-learning AI agents with a small interactive reward-based demo."
-    />
-    <title>Agent School — Self-learning agents, made simple</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My AI Learning Journey</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #080d18;
+    color: #fff;
+}
+
+header {
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1c2940;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+header span {
+    color: #a5b4fc;
+}
+
+.container {
+    width: 86%;
+    margin: 40px auto;
+}
+
+.hero {
+    padding: 45px;
+    background: linear-gradient(120deg, #14213d, #102d4a);
+    border-radius: 18px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    color: #b8c5d9;
+    line-height: 1.7;
+}
+
+.progress-box {
+    background: #111c2e;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 35px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    height: 12px;
+    background: #263449;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    transition: 0.4s;
+}
+
+.section-title {
+    margin: 35px 0 20px;
+    font-size: 25px;
+}
+
+.roadmap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #111c2e;
+    border: 1px solid #263449;
+    border-radius: 15px;
+    padding: 25px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+}
+
+.card h3 {
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #aab7cb;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.card ul {
+    list-style: none;
+    margin-bottom: 18px;
+}
+
+.card li {
+    padding: 7px 0;
+    color: #d3dceb;
+    font-size: 14px;
+}
+
+.card li::before {
+    content: "✦ ";
+    color: #38bdf8;
+}
+
+button {
+    background: #0284c7;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.completed {
+    background: #166534;
+}
+
+.completed:hover {
+    background: #15803d;
+}
+
+.resources {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.resource {
+    background: #111c2e;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #263449;
+}
+
+.resource a {
+    display: inline-block;
+    color: #38bdf8;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #8493aa;
+    margin-top: 50px;
+}
+
+@media(max-width: 600px) {
+    .container {
+        width: 92%;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    header {
+        padding: 18px 5%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">AI<span>Journey.</span></div>
+    <div>My Learning Dashboard</div>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>Master Artificial Intelligence 🚀</h1>
+        <p>
+            Your personal learning platform to become an AI Engineer.
+            Start from zero, learn programming, explore machine learning,
+            build real-world AI projects and become an expert.
+        </p>
+    </section>
+
+    <section class="progress-box">
+        <div class="progress-info">
+            <h3>Overall Learning Progress</h3>
+            <h3 id="percentage">0%</h3>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <p style="margin-top:12px;color:#aab7cb" id="completedCount">
+            0 topics completed
+        </p>
+    </section>
+
+    <h2 class="section-title">📚 Complete AI Roadmap</h2>
+
+    <div class="roadmap" id="roadmap"></div>
+
+    <h2 class="section-title">🌐 Free Learning Resources</h2>
+
+    <div class="resources">
+
+        <div class="resource">
+            <h3>Python</h3>
+            <p>Learn Python programming.</p>
+            <a href="https://www.python.org/doc/" target="_blank">Learn Python →</a>
+        </div>
+
+        <div class="resource">
+            <h3>Machine Learning</h3>
+            <p>Explore machine learning concepts.</p>
+            <a href="https://www.coursera.org/learn/machine-learning" target="_blank">Start Learning →</a>
+        </div>
+
+        <div class="resource">
+            <h3>Deep Learning</h3>
+            <p>Learn neural networks and deep learning.</p>
+            <a href="https://www.deeplearning.ai/" target="_blank">Explore →</a>
+        </div>
+
+        <div class="resource">
+            <h3>Generative AI</h3>
+            <p>Understand LLMs and generative AI.</p>
+            <a href="https://huggingface.co/learn" target="_blank">Start Learning →</a>
+        </div>
+
+        <div class="resource">
+            <h3>AI Development</h3>
+            <p>Learn AI frameworks and tools.</p>
+            <a href="https://pytorch.org/tutorials/" target="_blank">Explore PyTorch →</a>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>My AI Learning Journey | Learn • Build • Innovate 🚀</p>
+</footer>
+
+<script>
+
+const modules = [
+    {
+        title: "01. Mathematics for AI",
+        description: "Build the mathematical foundation required for Artificial Intelligence.",
+        topics: ["Linear Algebra", "Calculus", "Probability", "Statistics", "Optimization"]
+    },
+    {
+        title: "02. Python Programming",
+        description: "Master Python and become comfortable with programming.",
+        topics: ["Python Basics", "Functions & OOP", "NumPy", "Pandas", "Matplotlib"]
+    },
+    {
+        title: "03. Data Science",
+        description: "Learn how to collect, process and analyze data.",
+        topics: ["Data Cleaning", "Data Visualization", "Exploratory Analysis", "SQL", "Feature Engineering"]
+    },
+    {
+        title: "04. Machine Learning",
+        description: "Understand how machines learn from data.",
+        topics: ["Supervised Learning", "Unsupervised Learning", "Regression", "Classification", "Decision Trees", "Model Evaluation"]
+    },
+    {
+        title: "05. Deep Learning",
+        description: "Learn neural networks and advanced AI models.",
+        topics: ["Neural Networks", "TensorFlow", "PyTorch", "CNN", "RNN", "Transformers"]
+    },
+    {
+        title: "06. Natural Language Processing",
+        description: "Teach computers to understand human language.",
+        topics: ["Text Processing", "Tokenization", "Word Embeddings", "Sentiment Analysis", "Language Models"]
+    },
+    {
+        title: "07. Generative AI",
+        description: "Build applications using modern generative AI.",
+        topics: ["LLMs", "Prompt Engineering", "GPT Models", "Hugging Face", "Fine Tuning", "RAG"]
+    },
+    {
+        title: "08. AI Agents",
+        description: "Create autonomous AI systems that perform tasks.",
+        topics: ["AI Agent Basics", "Tool Calling", "LangChain", "LangGraph", "Multi-Agent Systems"]
+    },
+    {
+        title: "09. Deployment & MLOps",
+        description: "Deploy AI models into real-world applications.",
+        topics: ["Flask", "FastAPI", "Docker", "Cloud Deployment", "Model Monitoring", "CI/CD"]
+    },
+    {
+        title: "10. Advanced AI Projects",
+        description: "Apply everything you have learned to practical projects.",
+        topics: ["Chatbot Development", "RAG Assistant", "Image Recognition", "AI Recommendation System", "Autonomous AI Agent"]
+    }
+];
+
+const roadmap = document.getElementById("roadmap");
+
+let completed = JSON.parse(localStorage.getItem("aiCompleted")) || [];
+
+function renderRoadmap() {
+
+    roadmap.innerHTML = "";
+
+    modules.forEach((module, index) => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        let topicsHTML = module.topics.map((topic, topicIndex) => {
+
+            const id = index + "-" + topicIndex;
+            const isDone = completed.includes(id);
+
+            return `
+                <li>
+                    ${topic}
+                    <button
+                        class="${isDone ? 'completed' : ''}"
+                        onclick="toggleTopic('${id}')"
+                        style="float:right;padding:5px 9px">
+                        ${isDone ? '✓ Done' : 'Mark Done'}
+                    </button>
+                </li>
+            `;
+
+        }).join("");
+
+        card.innerHTML = `
+            <h3>${module.title}</h3>
+            <p>${module.description}</p>
+            <ul>${topicsHTML}</ul>
+            <p>${module.topics.filter((_, i) => completed.includes(index + "-" + i)).length}/${module.topics.length} completed</p>
+        `;
+
+        roadmap.appendChild(card);
+    });
+
+    updateProgress();
+}
+
+function toggleTopic(id) {
+
+    if (completed.includes(id)) {
+        completed = completed.filter(item => item !== id);
+    } else {
+        completed.push(id);
+    }
+
+    localStorage.setItem("aiCompleted", JSON.stringify(completed));
+
+    renderRoadmap();
+}
+
+function updateProgress() {
+
+    const total = modules.reduce((sum, module) => sum + module.topics.length, 0);
+
+    const percent = Math.round((completed.length / total) * 100);
+
+    document.getElementById("percentage").innerText = percent + "%";
+
+    document.getElementById("progress").style.width = percent + "%";
+
+    document.getElementById("completedCount").innerText =
+        completed.length + " / " + total + " topics completed";
+}
+
+renderRoadmap();
+
+</script>
+
+</body>
 </html>
